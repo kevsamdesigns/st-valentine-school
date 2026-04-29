@@ -1,5 +1,7 @@
 "use client"
 
+export const dynamic = "force-dynamic"
+
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -28,38 +30,31 @@ export default function LoginPage() {
     const email = formData.get("email") as string
     const password = formData.get("password") as string
 
-    const supabase = createClient()
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
+    try {
+      const supabase = createClient()
 
-    if (error) {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+
+      if (error) throw error
+
+      const { data: { user } } = await supabase.auth.getUser()
+      const role = user?.user_metadata?.role || "student"
+
+      toast.success("Welcome back!")
+
+      if (role === "admin") router.push("/admin")
+      else if (role === "teacher") router.push("/teacher")
+      else router.push("/student")
+
+    } catch (error: any) {
       toast.error("Login failed", {
         description: error.message,
       })
+    } finally {
       setIsLoading(false)
-      return
-    }
-
-    // Get user role and redirect accordingly
-    const { data: { user } } = await supabase.auth.getUser()
-    const role = user?.user_metadata?.role || "student"
-
-    toast.success("Welcome back!", {
-      description: "You have been logged in successfully.",
-    })
-
-    // Redirect based on role
-    switch (role) {
-      case "admin":
-        router.push("/admin")
-        break
-      case "teacher":
-        router.push("/teacher")
-        break
-      default:
-        router.push("/student")
     }
   }
 
@@ -94,20 +89,19 @@ export default function LoginPage() {
               <TabsContent key={role} value={role}>
                 <form onSubmit={handleLogin} className="space-y-4 mt-4">
                   <div className="space-y-2">
-                    <Label htmlFor={`${role}-email`}>Email</Label>
+                    <Label>Email</Label>
                     <Input
-                      id={`${role}-email`}
                       name="email"
                       type="email"
                       placeholder={`${role}@stvalentine.ac.ke`}
                       required
                     />
                   </div>
+
                   <div className="space-y-2">
-                    <Label htmlFor={`${role}-password`}>Password</Label>
+                    <Label>Password</Label>
                     <div className="relative">
                       <Input
-                        id={`${role}-password`}
                         name="password"
                         type={showPassword ? "text" : "password"}
                         placeholder="Enter your password"
@@ -117,25 +111,14 @@ export default function LoginPage() {
                         type="button"
                         variant="ghost"
                         size="icon"
-                        className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+                        className="absolute right-0 top-0 h-full px-3"
                         onClick={() => setShowPassword(!showPassword)}
                       >
-                        {showPassword ? (
-                          <EyeOff className="h-4 w-4 text-muted-foreground" />
-                        ) : (
-                          <Eye className="h-4 w-4 text-muted-foreground" />
-                        )}
+                        {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                       </Button>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <Link
-                      href="/auth/forgot-password"
-                      className="text-sm text-primary hover:underline"
-                    >
-                      Forgot password?
-                    </Link>
-                  </div>
+
                   <Button type="submit" className="w-full" disabled={isLoading}>
                     {isLoading ? "Signing in..." : "Sign In"}
                   </Button>
@@ -145,21 +128,12 @@ export default function LoginPage() {
           </Tabs>
 
           <div className="mt-6 text-center text-sm text-muted-foreground">
-            <p>
-              New student?{" "}
-              <Link href="/admissions" className="text-primary hover:underline">
-                Apply for admission
-              </Link>
-            </p>
+            <Link href="/admissions" className="text-primary hover:underline">
+              Apply for admission
+            </Link>
           </div>
         </CardContent>
       </Card>
-
-      <p className="mt-8 text-center text-sm text-muted-foreground">
-        <Link href="/" className="hover:underline">
-          Back to Home
-        </Link>
-      </p>
     </div>
   )
 }
