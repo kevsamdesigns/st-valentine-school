@@ -1,6 +1,8 @@
 "use client"
 
 export const dynamic = "force-dynamic"
+export const fetchCache = "force-no-store"
+export const revalidate = 0
 
 import { useState } from "react"
 import Link from "next/link"
@@ -18,7 +20,7 @@ export default function LoginPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const defaultRole = searchParams.get("role") || "student"
-  
+
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
@@ -77,6 +79,7 @@ export default function LoginPage() {
             Sign in to access your portal
           </CardDescription>
         </CardHeader>
+
         <CardContent>
           <Tabs defaultValue={defaultRole} className="w-full">
             <TabsList className="grid w-full grid-cols-3">
@@ -88,6 +91,7 @@ export default function LoginPage() {
             {["student", "teacher", "admin"].map((role) => (
               <TabsContent key={role} value={role}>
                 <form onSubmit={handleLogin} className="space-y-4 mt-4">
+
                   <div className="space-y-2">
                     <Label>Email</Label>
                     <Input
@@ -114,7 +118,11 @@ export default function LoginPage() {
                         className="absolute right-0 top-0 h-full px-3"
                         onClick={() => setShowPassword(!showPassword)}
                       >
-                        {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                        {showPassword ? (
+                          <EyeOff size={16} />
+                        ) : (
+                          <Eye size={16} />
+                        )}
                       </Button>
                     </div>
                   </div>
@@ -122,6 +130,7 @@ export default function LoginPage() {
                   <Button type="submit" className="w-full" disabled={isLoading}>
                     {isLoading ? "Signing in..." : "Sign In"}
                   </Button>
+
                 </form>
               </TabsContent>
             ))}
