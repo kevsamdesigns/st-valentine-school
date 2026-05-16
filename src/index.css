@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* St. Valentine Girls Senior School — Brand System
+   Header: Light Blue • Body: Cream White • Accent: Red • Footer: Chocolate Brown
+   All colors are HSL.
+*/
+
+@layer base {
+  :root {
+    /* Cream white background, deep ink text — high contrast */
+    --background: 41 67% 95%;            /* #FFF8E7 cream */
+    --foreground: 220 30% 12%;           /* near-black ink */
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 30% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 30% 12%;
+
+    /* Light Blue brand */
+    --primary: 211 72% 59%;              /* #4A90E2 */
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 211 90% 75%;
+    --primary-deep: 215 55% 22%;
+
+    /* Red accent */
+    --secondary: 0 68% 42%;              /* #B22222 firebrick */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 41 50% 92%;
+    --muted-foreground: 220 20% 22%;     /* AAA-contrast on cream for readability */
+
+    --accent: 0 68% 42%;                 /* same red */
+    --accent-foreground: 0 0% 100%;
+
+    /* Chocolate brown footer */
+    --chocolate: 15 53% 19%;             /* #3E2723 */
+    --chocolate-foreground: 41 67% 95%;
+
+    --destructive: 0 84% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 41 30% 82%;
+    --input: 41 30% 82%;
+    --ring: 211 72% 59%;
+
+    --radius: 0.75rem;
+
+    /* Gradients — hero overlay deepened for stronger text contrast over images */
+    --gradient-hero: linear-gradient(135deg, hsl(215 55% 12% / 0.88), hsl(211 72% 22% / 0.72));
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(0 70% 30%));
+    --gradient-cta: linear-gradient(135deg, hsl(var(--primary-deep)), hsl(211 72% 40%));
+
+    /* Shadows */
+    --shadow-elegant: 0 12px 40px -12px hsl(211 72% 40% / 0.35);
+    --shadow-card: 0 6px 24px -8px hsl(220 30% 12% / 0.12);
+    --shadow-strong: 0 24px 60px -18px hsl(215 55% 18% / 0.45);
+    --shadow-glow: 0 0 50px hsl(211 90% 75% / 0.5);
+
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Poppins', system-ui, sans-serif;
+    @apply tracking-tight font-bold;
+  }
+
+  html { scroll-behavior: smooth; }
+}
+
+@layer utilities {
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .bg-hero-overlay { background: var(--gradient-hero); }
+  .bg-gradient-cta { background: var(--gradient-cta); }
+  .bg-gradient-primary { background: var(--gradient-primary); }
+  .bg-gradient-accent { background: var(--gradient-accent); }
+
+  .shadow-elegant { box-shadow: var(--shadow-elegant); }
+  .shadow-card-soft { box-shadow: var(--shadow-card); }
+  .shadow-strong { box-shadow: var(--shadow-strong); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+  .transition-smooth { transition: var(--transition-smooth); }
+  .transition-bounce { transition: var(--transition-bounce); }
+
+  .hover-lift {
+    @apply transition-smooth hover:-translate-y-1 hover:shadow-elegant;
+  }
+}
