@@ -8,7 +8,7 @@ type Props = {
   noIndex?: boolean;
 };
 
-const SITE_DOMAIN = "https://stvalentinegirlsseniorschool.co.ke";
+const SITE_DOMAIN = "https://www.stvalentinegirlsseniorschool.co.ke";
 
 export const SEO = ({ title, description, keywords, path, noIndex }: Props) => {
   useEffect(() => {
@@ -36,6 +36,14 @@ export const SEO = ({ title, description, keywords, path, noIndex }: Props) => {
     setMeta("og:description", description, true);
     setMeta("og:type", "website", true);
     setMeta("og:url", path ? `${SITE_DOMAIN}${path}` : SITE_DOMAIN, true);
+    setMeta("og:image", "/favicon.png", true);
+    setMeta("og:site_name", "St. Valentine Girls Senior School", true);
+
+    // Twitter cards
+    setMeta("twitter:card", "summary_large_image");
+    setMeta("twitter:title", title);
+    setMeta("twitter:description", description);
+    setMeta("twitter:image", "/favicon.png");
 
     // canonical
     const canonicalHref = path ? `${SITE_DOMAIN}${path}` : SITE_DOMAIN;

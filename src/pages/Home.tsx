@@ -20,20 +20,44 @@ import { SEO } from "@/components/SEO";
 const Home = () => (
   <>
     <SEO
-      title="St Valentine Girls Senior School | Excellence in Education"
-      description="St Valentine Girls Senior School is committed to academic excellence, leadership development, and holistic education in Kenya."
-      keywords="St Valentine Girls Senior School, girls school Kenya, secondary school, admissions, education"
+      title="St. Valentine Girls Senior School | Excellence in Education"
+      description="Official website of St. Valentine Girls Senior School. Learn about admissions, academics, student life, and school updates."
+      keywords="St Valentine Girls Senior School, girls school Kenya, education, admissions, secondary school"
       path="/"
     />
 
-    <header>
-      <h1 className="sr-only">St Valentine Girls Senior School</h1>
-    </header>
+    <main>
+      <section className="py-20 md:py-24">
+        <div className="container">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h1 className="font-display text-5xl md:text-6xl text-primary-deep mb-4">St. Valentine Girls Senior School</h1>
+            <p className="text-muted-foreground text-lg md:text-xl">Official website of St. Valentine Girls Senior School. Learn about admissions, academics, student life, and school updates.</p>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <article className="p-7 rounded-2xl bg-card border border-border shadow-card-soft">
+              <h2 className="font-display text-2xl text-primary-deep mb-3">About the school</h2>
+              <p className="text-muted-foreground text-sm leading-relaxed">A girls' boarding school focused on academic excellence, leadership, character development, and a safe learning environment.</p>
+            </article>
+            <article className="p-7 rounded-2xl bg-card border border-border shadow-card-soft">
+              <h2 className="font-display text-2xl text-primary-deep mb-3">Admissions</h2>
+              <p className="text-muted-foreground text-sm leading-relaxed">Open admissions for girls who seek a balanced curriculum, strong pastoral care, and a supportive boarding community.</p>
+            </article>
+            <article className="p-7 rounded-2xl bg-card border border-border shadow-card-soft">
+              <h2 className="font-display text-2xl text-primary-deep mb-3">Academics</h2>
+              <p className="text-muted-foreground text-sm leading-relaxed">A rigorous CBC and CBE curriculum delivered by experienced teachers to prepare learners for national exams and future success.</p>
+            </article>
+            <article className="p-7 rounded-2xl bg-card border border-border shadow-card-soft">
+              <h2 className="font-display text-2xl text-primary-deep mb-3">Contact information</h2>
+              <p className="text-muted-foreground text-sm leading-relaxed">Reach us through the contact page for details on applications, visits, or general enquiries about school life.</p>
+            </article>
+          </div>
+        </div>
+      </section>
 
-    <HeroCarousel />
+      <HeroCarousel />
 
-    {/* Welcome / Values */}
-    <section className="py-20 md:py-24">
+      {/* Welcome / Values */}
+      <section className="py-20 md:py-24">
       <div className="container">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <p className="text-secondary font-semibold uppercase tracking-[0.25em] text-xs mb-3">Our Values</p>
@@ -139,7 +163,7 @@ const Home = () => (
         </div>
       </div>
     </section>
-  </>
+  </main>
 );
 
 export default Home;
